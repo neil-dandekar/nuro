@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import CourseResult from "./CourseResult";
 import { Course } from "@/lib/types";
 
@@ -25,7 +26,6 @@ export default function CourseForm() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ topic, duration, level }),
             });
-
             const data = await res.json();
             setResult(data);
         } catch (err) {
@@ -36,10 +36,12 @@ export default function CourseForm() {
     };
 
     return (
-        <>
-            <form onSubmit={handleSubmit} className="space-y-4 mb-6">
+        <Card className="p-6 mb-8 shadow-md">
+            <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                    <Label htmlFor="topic">What do you want to learn?</Label>
+                    <Label htmlFor="topic" className="block mb-1">
+                        What do you want to learn?
+                    </Label>
                     <Input
                         id="topic"
                         value={topic}
@@ -50,7 +52,9 @@ export default function CourseForm() {
                 </div>
 
                 <div>
-                    <Label htmlFor="duration">Duration (weeks)</Label>
+                    <Label htmlFor="duration" className="block mb-1">
+                        Duration (weeks)
+                    </Label>
                     <Input
                         id="duration"
                         type="number"
@@ -63,7 +67,9 @@ export default function CourseForm() {
                 </div>
 
                 <div>
-                    <Label htmlFor="level">Skill Level</Label>
+                    <Label htmlFor="level" className="block mb-1">
+                        Skill Level
+                    </Label>
                     <Input
                         id="level"
                         value={level}
@@ -79,6 +85,6 @@ export default function CourseForm() {
             </form>
 
             {result && <CourseResult course={result} />}
-        </>
+        </Card>
     );
 }
